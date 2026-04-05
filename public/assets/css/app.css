@@ -1,0 +1,276 @@
+/*-----HEADER-----*/
+body{
+    background-color: #909090;
+}
+ /* Tùy chỉnh màu sắc để giống hình ảnh */
+        .top-bar {
+            background-color: #003366; /* Màu xanh đậm */
+            color: #fff;
+            font-size: 0.8rem;
+        }
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .main-header {
+            background-color: #d8d8d8; /* Màu xám nhạt */
+            padding: 10px 0;
+        }
+        .logo-text {
+            border-left: 1px solid #c8c8c8;
+            padding-left: 10px;
+            color: #1e3c72; /* Màu xanh của text logo */
+        }
+        .logo-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+            font-weight: 700;
+        }
+        .logo-text p {
+            font-size: 1rem;
+            margin-bottom: 0;
+            font-weight: 700;
+            color: #003366;
+        }
+        .btn-search {
+            background-color: #f7b036; /* Màu vàng của nút */
+            border-color: #f7b036;
+            color: white;
+        }
+        .btn-search:hover {
+            background-color: #d6982f;
+            color: white;
+        }
+        /* Navbar màu đỏ */
+        .bg-custom-red {
+            background-color: #8B0000 !important; /* Màu đỏ đậm */
+        }
+        .navbar-custom .navbar-nav .nav-link {
+            color: rgba(255,255,255,1);
+            padding: 10px 15px;
+            font-size: 0.95rem;
+        }
+        .navbar-custom .navbar-nav .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        .navbar-toggler {
+            border-color: rgba(255,255,255,0.5);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Tùy chỉnh cho điện thoại */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background-color: #8B0000;
+                padding: 10px;
+            }
+            .main-header .row {
+                text-align: center;
+            }
+            .main-header img {
+                margin-bottom: 10px;
+            }
+        }
+        /* Làm menu tự hiện khi hover */
+@media (min-width: 992px) {
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; /* Tránh khoảng cách làm mất hover */
+    }
+}
+
+/* Định dạng menu con cho giống màu đỏ IUH */
+.dropdown-item:hover {
+    background-color: #8B0000;
+    color: white;
+}
+/*-----FOOTER-----*/
+  /* Tùy chỉnh màu sắc để giống hình ảnh */
+        .hht-footer {
+            background-color: #a52a2a; /* Màu đỏ đậm */
+            color: rgba(255,255,255,0.8);
+            padding: 50px 0;
+            font-size: 0.9rem;
+        }
+        .hht-footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .hht-footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-heading {
+            text-transform: uppercase;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            font-size: 1rem;
+        }
+
+        /* Tùy chỉnh danh sách để giống hình */
+        .hht-footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+        .hht-footer ul li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        /* Icon gạch ngang hoặc dấu chấm */
+        .hht-footer ul li::before {
+            content: "\2013"; /* Mã Unicode cho gạch ngang */
+            color: white;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Phần bản quyền nền tối hơn */
+        .copyright-bar {
+            background-color: #8B1A1A; /* Màu đỏ đậm hơn */
+            color: white;
+            font-size: 0.85rem;
+            padding: 15px 0;
+        }
+
+        /* Tùy chỉnh cho điện thoại */
+        @media (max-width: 767.98px) {
+            .hht-footer {
+                text-align: center;
+                padding: 30px 0;
+            }
+            .hht-footer .col-6 {
+                margin-bottom: 30px;
+            }
+            .hht-footer ul li {
+                justify-content: center;
+            }
+            .footer-heading {
+                display: inline-block;
+            }
+        }
+/*-------------CONTENT-------------*/
+@media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1080px;
+    }
+}
+.content-body {
+    background-color: #fff;
+}
+main {
+    background-color: #909090;
+}
+ /* --- A. CẤU HÌNH GRID CHÍNH --- */
+    .fit-grid-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding-bottom: 40px;
+        padding-top: 40px;
+    }
+
+    .fit-slider-box {
+        grid-column: span 2;
+    }
+
+    /* --- B. ĐỊNH DẠNG CARD & TỈ LỆ ẢNH --- */
+    .fit-card {
+        background: #fff;
+        padding: 15px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fit-card h3 {
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-bottom: 2px solid;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+    }
+
+    /* Tỉ lệ ảnh cho Slider */
+    .carousel-inner {
+        width: 100%;
+        aspect-ratio: 3 / 1.1; /* Ngắn lại một chút cho đẹp */
+    }
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Tỉ lệ ảnh cho Banner Trung tâm tin học & Các ô hàng dưới */
+    /* 16/9 là tỉ lệ vàng để các khối khớp nhau khi đặt cạnh danh sách tin tức */
+    .ratio-box {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        position: relative;
+        border-radius: 4px;
+    }
+    .ratio-box img {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+    }
+
+    /* --- C. TIN TỨC & TIỆN ÍCH --- */
+    .news-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+    .news-item img {
+        width: 100px;
+        height: 70px;
+        object-fit: cover;
+        border: 1px solid #eee;
+    }
+    .news-item a {
+        font-size: 13px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    .text-fit-red { color: #8B0000; border-color: #8B0000; }
+    .text-fit-blue { color: #003366; border-color: #003366; }
+
+    .badge-new {
+        background-color: #d00;
+        color: white;
+        font-size: 10px;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+
+    .list-links li {
+        margin-bottom: 10px;
+        padding-left: 15px;
+        position: relative;
+        font-size: 13px;
+    }
+    .list-links li::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: #666;
+    }
+
+    @media (max-width: 992px) {
+        .fit-grid-wrapper { grid-template-columns: 1fr; }
+        .fit-slider-box { grid-column: span 1; }
+    }

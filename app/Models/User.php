@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class User extends Authenticatable
+{
+    use HasFactory, Notifiable;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /* --- BỔ SUNG CÁC MỐI QUAN HỆ --- */
+
+    /**
+     * Một User có thể viết nhiều bài bài viết (News/Posts)
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Một User có thể có nhiều vai trò (Admin, Editor, v.v.)
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Hàm hỗ trợ kiểm tra xem user có quyền nhất định không
+     * Ví dụ dùng trong Blade: @if(Auth::user()->hasRole('admin'))
+     */
+    public function hasRole($roleName): bool
+    {
+        return $this->roles->contains('name', $roleName);
+    }
+}
