@@ -14,42 +14,72 @@
             </div>
         </div>
 
-        <div class="fit-card">
-            <h3 class="text-fit-red">Tin nổi bật</h3>
-            <ul class="list-unstyled list-links">
-                <li><a href="#" class="text-dark">Lịch thi HK2/2025-2026 từ ngày 06/04/2026 <span class="badge badge-new">NEW</span></a></li>
-                <li><a href="#" class="text-dark">Lịch thi HK2/2025-2026 từ ngày 30/03/2026</a></li>
-                <li><a href="#" class="text-dark">Thông báo kế hoạch định hướng tách ngành...</a></li>
-            </ul>
-        </div>
+        <div class="sidebar-box mb-4">
+    <h5 class="sidebar-title fw-bold border-bottom pb-2 text-danger">TIN NỔI BẬT</h5>
+    <ul class="list-unstyled mt-3 sidebar-list">
+        @foreach($featured as $item)
+            <li>
+                <a href="{{ route('news.show', $item->slug) }}" class="text-decoration-none text-dark small">
+                    <i class="fas fa-caret-right me-2"></i>
+                    {{ $item->title }}
+
+                    {{-- Tự động hiển thị badge NEW nếu bài đăng trong vòng 3 ngày gần đây --}}
+                    @if($item->created_at->diffInDays(now()) < 3)
+                        <span class="badge bg-danger ms-1">NEW</span>
+                    @endif
+                </a>
+            </li>
+        @endforeach
+
+        {{-- Hiển thị nếu không có bài viết nào được đánh dấu nổi bật --}}
+        @if($featured->isEmpty())
+            <li class="text-muted small ps-2">Chưa có tin nổi bật mới nhất.</li>
+        @endif
+    </ul>
+</div>
+
+       <div class="fit-card">
+    <h3 class="text-fit-blue">Tin tức - Sự kiện</h3>
+    <div class="news-list">
+        @foreach($news as $item)
+        <article class="news-item">
+            <img src="{{ $item->thumbnail ? asset('storage/' . $item->thumbnail) : asset('assets/images/anh1.jpg') }}" alt="news">
+
+            <a href="{{ url('news/' . $item->slug) }}">
+                {{ Str::limit($item->title, 70, '...') }}
+
+                @if($item->created_at->diffInDays(now()) < 3)
+                    <span class="badge badge-new">NEW</span>
+                @endif
+            </a>
+        </article>
+        @endforeach
+    </div>
+</div>
 
         <div class="fit-card">
-            <h3 class="text-fit-blue">Tin tức - Sự kiện</h3>
-            <div class="news-list">
-                <article class="news-item">
-                    <img src="{{ asset('assets/images/anh1.jpg') }}" alt="news">
-                    <a href="#">Khoa Công nghệ thông tin thăm và làm việc với 04 Trường Ấn Độ... <span class="badge badge-new">NEW</span></a>
-                </article>
-                <article class="news-item">
-                    <img src="{{ asset('assets/images/anh1.jpg') }}" alt="news">
-                    <a href="#">[RECAP] SEMINAR: ỨNG DỤNG AI TRONG LẬP TRÌNH...</a>
-                </article>
-            </div>
-        </div>
+    <h3 class="text-fit-blue">Thông báo sinh viên</h3>
+    <div class="news-list">
+        @foreach($notifications as $item)
+        <article class="news-item">
+            <img src="{{ $item->thumbnail ? asset('storage/' . $item->thumbnail) : asset('assets/images/default-notification.jpg') }}" alt="notification">
 
-        <div class="fit-card">
-            <h3 class="text-fit-blue">Thông báo sinh viên</h3>
-            <div class="news-list">
-                <article class="news-item">
-                    <img src="{{ asset('assets/images/anh1.jpg') }}" alt="notification">
-                    <a href="#">Lịch thi HK2/2025-2026 từ ngày 06/04/2026 <span class="badge badge-new">NEW</span></a>
-                </article>
-                <article class="news-item">
-                    <img src="{{ asset('assets/images/anh1.jpg') }}" alt="notification">
-                    <a href="#">[Kết nối DN]: Tham quan kiến tập tại FPT Software...</a>
-                </article>
-            </div>
-        </div>
+            <a href="{{ route('news.show', $item->slug) }}">
+                {{ \Illuminate\Support\Str::limit($item->title, 70, '...') }}
+
+                @if($item->created_at->diffInDays(now()) < 3)
+                    <span class="badge badge-new">NEW</span>
+                @endif
+            </a>
+        </article>
+        @endforeach
+
+        {{-- Hiển thị thông báo nếu chưa có dữ liệu --}}
+        @if($notifications->isEmpty())
+            <p class="text-muted small p-3">Chưa có thông báo mới.</p>
+        @endif
+    </div>
+</div>
 
         <div class="fit-card text-center">
             <h3 class="text-fit-red">Trung tâm tin học</h3>
@@ -59,26 +89,50 @@
         </div>
 
         <div class="fit-card">
-            <h3 class="text-fit-blue">Thông tin tuyển sinh</h3>
-            <div class="ratio-box mb-3 shadow-sm">
-                <img src="{{ asset('assets/images/anh1.jpg') }}" alt="Tuyển sinh FIT">
-            </div>
-            <ul class="list-unstyled list-links">
-                <li>› Thông báo tuyển sinh đại học - đợt 1 năm 2026</li>
-                <li>› Thông báo tuyển sinh thạc sĩ năm 2026</li>
-            </ul>
-        </div>
+    <h3 class="text-fit-blue">Thông tin tuyển sinh</h3>
+    <div class="ratio-box mb-3 shadow-sm">
+        <img src="{{ asset('assets/images/thongtintuyensinh.png') }}" alt="Tuyển sinh FIT">
+    </div>
+    <ul class="list-unstyled list-links">
+        @foreach($admissions as $item)
+            <li>
+                <a href="{{ route('news.show', $item->slug) }}" class="text-decoration-none text-dark">
+                    › {{ $item->title }}
+                </a>
+            </li>
+        @endforeach
+
+        {{-- Hiển thị thông báo nếu trống dữ liệu --}}
+        @if($admissions->isEmpty())
+            <li class="text-muted small">› Đang cập nhật thông tin tuyển sinh...</li>
+        @endif
+    </ul>
+</div>
 
         <div class="fit-card">
-            <h3 class="text-fit-blue">Thực tập - Tuyển dụng</h3>
-            <div class="ratio-box mb-3 shadow-sm">
-                <img src="{{ asset('assets/images/anh1.jpg') }}" alt="Thực tập">
-            </div>
-            <ul class="list-unstyled list-links">
-                <li>› [FPT SOFTWARE NHA TRANG]: Tuyển FRESHER... <span class="badge badge-new">NEW</span></li>
-                <li>› [Team Solutions] Tuyển dụng Thực tập sinh .NET</li>
-            </ul>
-        </div>
+    <h3 class="text-fit-blue">Thực tập - Tuyển dụng</h3>
+    <div class="ratio-box mb-3 shadow-sm">
+        <img src="{{ asset('assets/images/thuctaptuyendung.png') }}" alt="Thực tập">
+    </div>
+    <ul class="list-unstyled list-links">
+        @foreach($careers as $item)
+            <li>
+                <a href="{{ route('news.show', $item->slug) }}" class="text-decoration-none text-dark">
+                    › {{ $item->title }}
+
+                    {{-- Hiển thị badge NEW nếu bài mới đăng trong 3 ngày --}}
+                    @if($item->created_at->diffInDays(now()) < 3)
+                        <span class="badge badge-new">NEW</span>
+                    @endif
+                </a>
+            </li>
+        @endforeach
+
+        @if($careers->isEmpty())
+            <li class="text-muted small">› Đang cập nhật thông tin tuyển dụng...</li>
+        @endif
+    </ul>
+</div>
 
         <div class="fit-card">
             <h3 class="text-fit-red">Video giới thiệu</h3>

@@ -15,11 +15,11 @@
                     <h4>Cấu hình tổng quát</h4></a></div>
               </div>
               <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="box-dashboard"><a href="{{ route('admin.danh-sach-san-pham') }}"><img src="{{ asset('admin_assets/img/product.png') }}"/>
-                    <h4>Danh sách sản phẩm</h4></a></div>
+                <div class="box-dashboard"><a href="#"><img src="{{ asset('admin_assets/img/product.png') }}"/>
+                    <h4>Danh sách danh mục</h4></a></div>
               </div>
               <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="box-dashboard"><a href="danh-sach-bai-viet.html"><img src="{{ asset('admin_assets/img/post.png') }}"/>
+                <div class="box-dashboard"><a href="{{ route('admin.danh-sach-bai-viet') }}"><img src="{{ asset('admin_assets/img/post.png') }}"/>
                     <h4>Danh sách bài viết</h4></a></div>
               </div>
             </div>

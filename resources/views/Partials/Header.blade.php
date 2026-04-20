@@ -22,7 +22,7 @@
             <div class="col-12 col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-3 mb-lg-0">
                 <img src="{{ asset('assets/images/hht.png') }}" alt="Logo HHT" height="60" class="me-3">
                 <div class="logo-text">
-                    <h3>ĐẠI HỌC CÔNG NGHIỆP TP. HỒ CHÍ MINH</h3>
+                    <h3>CAO ĐẲNG CÔNG NGHỆ CAO HÀ NỘI</h3>
                     <p>KHOA CÔNG NGHỆ THÔNG TIN</p>
                 </div>
             </div>
@@ -43,42 +43,29 @@
         <button class="navbar-toggler ms-auto me-2 my-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenuIUH" aria-controls="mainMenuIUH" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="mainMenuIUH">
             <ul class="navbar-nav w-100 justify-content-start">
-                <li class="nav-link active fw-bold">Trang chủ</li>
-
+                <li class="nav-item">
+                    <a class="nav-link active fw-bold" href="{{ route('home') }}">Trang chủ</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         Giới thiệu
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Giới thiệu về khoa</a></li>
-                        <li><a class="dropdown-item" href="#">Cơ cấu tổ chức</a></li>
-                         <li><a class="dropdown-item" href="#">Đội ngũ giảng viên</a></li>
+                        <li><a class="dropdown-item" href="{{ route('about.khoa') }}">Giới thiệu về khoa</a></li>
+                        <li><a class="dropdown-item" href="{{ route('organization.structure') }}">Cơ cấu tổ chức</a></li>
+                        <li><a class="dropdown-item" href="{{ route('faculty.members') }}">Đội ngũ giảng viên</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         Đào tạo
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Đại học</a></li>
-                        <li><a class="dropdown-item" href="#">Sau đại học</a></li>
+                        <li><a class="dropdown-item" href="#">Thông tin tuyển sinh</a></li>
                     </ul>
                 </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        Nghiên cứu
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Đề tài</a></li>
-                        <li><a class="dropdown-item" href="#">Bài báo</a></li>
-                    </ul>
-                </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="#">Tin tức - Sự kiện</a>
                 </li>
@@ -88,8 +75,7 @@
                         Hoạt động
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Đoàn hội</a></li>
-                        <li><a class="dropdown-item" href="#">CLB</a></li>
+                        <li><a class="dropdown-item" href="#">Đoàn thanh niên</a></li>
                     </ul>
                 </li>
 
@@ -98,8 +84,9 @@
                         Sinh viên
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Tài liệu</a></li>
-                        <li><a class="dropdown-item" href="#">Biểu mẫu</a></li>
+                        <li><a class="dropdown-item" href="#">Thông báo sinh viên</a></li>
+                        <li><a class="dropdown-item" href="#">Hướng dẫn biểu mẫu</a></li>
+                        <li><a class="dropdown-item" href="#">Thực tập việc làm</a></li>
                     </ul>
                 </li>
 
