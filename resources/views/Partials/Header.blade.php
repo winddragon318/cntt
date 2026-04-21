@@ -2,13 +2,6 @@
 <body>
 <div class="top-bar p-2">
     <div class="container d-flex flex-wrap justify-content-between align-items-center">
-        <div class="d-flex flex-wrap gap-2 gap-sm-3 justify-content-center w-100 w-md-auto mb-2 mb-md-0">
-            <a href="#" class="border-end pe-2">Website IUH</a>
-            <a href="#" class="border-end pe-2">E-Office</a>
-            <a href="#" class="border-end pe-2">Email</a>
-            <a href="#" class="border-end pe-2">Thư viện</a>
-            <a href="#">Tin nội bộ</a>
-        </div>
         <div class="d-none d-md-block">
             <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg" width="25" alt="VN" class="me-1">
             <img src="{{ asset('assets/images/england.png') }}" width="25" alt="EN">

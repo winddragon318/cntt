@@ -20,7 +20,9 @@ Route::get('/co-cau-to-chuc', function () {
 Route::get('/doi-ngu-giang-vien', function () {
     return view('pages.doi-ngu-giang-vien');
 })->name('faculty.members');
-
+Route::get('/student/dashboard', function () {
+    return view('student.Dashboard');
+})->name('student.dashboard');
 // Route xem chi tiết bài viết
 Route::get('/news/{slug}', [PostController::class, 'show'])->name('news.show');
 //------------------//
