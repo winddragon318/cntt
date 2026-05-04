@@ -86,6 +86,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/classes/{id}/edit', [ClassManagerController::class, 'edit'])->name('admin.classes.edit');
     Route::put('/classes/{id}', [ClassManagerController::class, 'update'])->name('admin.classes.update');
     Route::delete('/classes/{id}', [ClassManagerController::class, 'destroy'])->name('admin.classes.destroy');
+    // Hiển thị danh sách học sinh trong lớp
+    Route::get('/classes/{id}', [ClassManagerController::class, 'show'])->name('admin.classes.show');
+    Route::post('/classes/{id}/import', [ClassManagerController::class, 'import'])->name('admin.classes.import');
+    // Xem chương trình khung của lớp
+    Route::get('/classes/{id}/curriculum', [ClassManagerController::class, 'curriculum'])->name('admin.classes.curriculum');
+    // Thêm khóa học mới trực tiếp vào lớp này
+    Route::post('/classes/{id}/courses', [ClassManagerController::class, 'storeCourse'])->name('admin.classes.storeCourse');
+    // Sửa/Xóa khóa học (dùng chung cho toàn hệ thống)
+    Route::put('/courses/{id}', [CourseController::class, 'update'])->name('admin.courses.update');
+    Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('admin.courses.destroy');
 });
 
 // --- PROFILE & AUTH ---

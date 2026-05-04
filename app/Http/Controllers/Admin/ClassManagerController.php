@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classes;
+use App\Imports\StudentImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\User;
+use App\Models\Course;
 class ClassManagerController extends Controller
 {
     // Hiển thị danh sách lớp
@@ -59,5 +63,56 @@ public function destroy($id)
     $class->delete();
 
     return redirect()->back()->with('success', 'Đã xóa lớp học thành công!');
+}
+// Hiển thị danh sách học sinh trong lớp
+public function show($id)
+{
+    $class = Classes::with('students')->findOrFail($id);
+    return view('admin.classes.show', compact('class'));
+}
+
+    // Xử lý Import
+    public function import(Request $request, $id)
+    {
+        $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls'
+        ]);
+        Excel::import(new StudentImport($id), $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Import sinh viên vào lớp thành công!');
+    }
+    public function curriculum($id)
+{
+    $class = Classes::with('courses.teachers')->findOrFail($id);
+
+    // Lấy danh sách giáo viên để chọn khi thêm khóa học
+    $teachers = User::whereHas('roles', function($q){
+        $q->where('name', 'teacher');
+    })->get();
+
+    return view('admin.classes.curriculum', compact('class', 'teachers'));
+}
+
+public function storeCourse(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required',
+        'code' => 'required|unique:courses,code',
+        'teacher_ids' => 'required|array'
+    ]);
+
+    // 1. Tạo khóa học mới
+    $course = Course::create([
+        'name' => $request->name,
+        'code' => $request->code,
+    ]);
+
+    // 2. Gán giáo viên vào khóa học (Bảng teacher_course)
+    $course->teachers()->attach($request->teacher_ids);
+
+    // 3. Gán khóa học vào lớp (Bảng class_course)
+    $class = Classes::findOrFail($id);
+    $class->courses()->attach($course->id);
+
+    return redirect()->back()->with('success', 'Đã thêm khóa học vào chương trình!');
 }
 }

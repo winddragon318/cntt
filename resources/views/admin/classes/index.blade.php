@@ -35,24 +35,37 @@
             </thead>
         <tbody>
             @foreach($classes as $class)
-            <tr>
-                <td>{{ $class->id }}</td>
-                <td>{{ $class->name }}</td>
-                <td>{{ $class->school_year }}</td>
-                <td>
-                    <div class="d-flex">
-                    <!-- Nút Sửa -->
-                    <a href="{{ route('admin.classes.edit', $class->id) }}" class="btn btn-warning btn-sm mr-2">Sửa</a>
-                    <!-- Nút Xóa (Phải nằm trong form mới dùng được DELETE) -->
-                    <form action="{{ route('admin.classes.destroy', $class->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa lớp này?')">
-                    @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                    </form>
-                    </div>
-                </td>
-            </tr>
-            @endforeach
+<tr>
+    <td>{{ $class->id }}</td>
+    <!-- Gắn link vào tên lớp -->
+    <td>
+        <a href="{{ route('admin.classes.show', $class->id) }}" style="font-weight: bold; text-decoration: none;">
+            {{ $class->name }}
+        </a>
+    </td>
+    <td>{{ $class->school_year }}</td>
+    <td>
+        <div class="d-flex">
+            <a href="{{ route('admin.classes.curriculum', $class->id) }}" class="btn btn-primary btn-sm mr-2">
+                <i class="fas fa-book"></i> Chương trình khung
+            </a>
+            <!-- Nút Xem chi tiết/Import -->
+            <a href="{{ route('admin.classes.show', $class->id) }}" class="btn btn-info btn-sm mr-2">
+                <i class="fas fa-users"></i> Danh sách SV
+            </a>
+            <!-- Nút Sửa -->
+            <a href="{{ route('admin.classes.edit', $class->id) }}" class="btn btn-warning btn-sm mr-2">Sửa</a>
+
+            <!-- Nút Xóa -->
+            <form action="{{ route('admin.classes.destroy', $class->id) }}" method="POST" onsubmit="return confirm('Xóa lớp sẽ xóa toàn bộ liên kết sinh viên. Tiếp tục?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+            </form>
+        </div>
+    </td>
+</tr>
+@endforeach
         </tbody>
     </table>
     </div>

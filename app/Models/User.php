@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->roles->contains('name', $roleName);
     }
+    // lơp học mà sinh viên đang theo học
+    public function classes()
+    {
+        return $this->belongsToMany(Classes::class, 'class_student', 'student_id', 'class_id');
+    }
 }
