@@ -30,11 +30,25 @@
                 </ul>
               </div>
             </li>
-             <li class="nav-item"><a class="nav-link waves-effect" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="ui-basic"><i class="mdi mdi-account-circle-outline menu-icon"></i><span class="menu-title">Quản lý tài khoản</span></a><i class="mdi mdi-chevron-down menu-down" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="ui-basic"></i>
+            <li class="nav-item"><a class="nav-link waves-effect" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="ui-basic"><i class="mdi mdi-account-circle-outline menu-icon"></i><span class="menu-title">Quản lý tài khoản</span></a><i class="mdi mdi-chevron-down menu-down" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="ui-basic"></i>
               <div class="collapse show" id="account">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"><a class="nav-link" href="{{ route('admin.danh-sach-tai-khoan') }}">Danh sách tài khoản</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ route('admin.them-tai-khoan') }}">Thêm tài khoản</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link waves-effect" data-toggle="collapse" href="#teacher" aria-expanded="false" aria-controls="ui-basic"><i class="mdi mdi-account-circle-outline menu-icon"></i><span class="menu-title">Quản lý giáo viên</span></a><i class="mdi mdi-chevron-down menu-down" data-toggle="collapse" href="#teacher" aria-expanded="false" aria-controls="ui-basic"></i>
+              <div class="collapse show" id="teacher">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{ route('admin.teachers.index') }}">Danh sách giáo viên</a></li>
+                </ul>
+              </div>
+            </li>
+             <li class="nav-item"><a class="nav-link waves-effect" data-toggle="collapse" href="#class" aria-expanded="false" aria-controls="ui-basic"><i class="mdi mdi-account-circle-outline menu-icon"></i><span class="menu-title">Quản lý lớp học</span></a><i class="mdi mdi-chevron-down menu-down" data-toggle="collapse" href="#class" aria-expanded="false" aria-controls="ui-basic"></i>
+              <div class="collapse show" id="class">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{ route('admin.classes.index') }}">Danh sách lớp học</a></li>
                 </ul>
               </div>
             </li>

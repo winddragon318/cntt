@@ -1,6 +1,9 @@
-@extends('layouts.student')
+@extends(
+    Auth::user()->hasRole('admin') ? 'admin.layout' : 
+    (Auth::user()->hasRole('teacher') ? 'layouts.teacher' : 'layouts.student')
+)
 
-@section('student_content')
+@section('content')
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">

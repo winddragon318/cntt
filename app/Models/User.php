@@ -16,6 +16,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'login_code',
+        'birthday',
+        'gender',
     ];
 
     protected $hidden = [
@@ -44,10 +47,10 @@ class User extends Authenticatable
     /**
      * Một User có thể có nhiều vai trò (Admin, Editor, v.v.)
      */
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class);
-    }
+    public function roles()
+{
+    return $this->belongsToMany(Role::class, 'role_user');
+}
 
     /**
      * Hàm hỗ trợ kiểm tra xem user có quyền nhất định không

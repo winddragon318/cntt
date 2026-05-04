@@ -73,7 +73,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts,slug,' . $id,
             'content' => 'required',
-            'categories' => 'required', // Validate trực tiếp giá trị string
+            'categories' => 'required',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 

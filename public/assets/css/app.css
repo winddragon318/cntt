@@ -43,7 +43,7 @@ body{
         }
         /* Navbar màu đỏ */
         .bg-custom-red {
-            background-color: #8B0000 !important; /* Màu đỏ đậm */
+            background-color: #20008b !important; /* Màu đỏ đậm */
         }
         .navbar-custom .navbar-nav .nav-link {
             color: rgba(255,255,255,1);
@@ -89,7 +89,7 @@ body{
 /*-----FOOTER-----*/
   /* Tùy chỉnh màu sắc để giống hình ảnh */
         .hht-footer {
-            background-color: #a52a2a; /* Màu đỏ đậm */
+            background-color: #00438b !important; /* Màu đỏ đậm */
             color: rgba(255,255,255,0.8);
             padding: 50px 0;
             font-size: 0.9rem;
@@ -134,7 +134,7 @@ body{
 
         /* Phần bản quyền nền tối hơn */
         .copyright-bar {
-            background-color: #8B1A1A; /* Màu đỏ đậm hơn */
+            background-color: #1a428b; /* Màu đỏ đậm hơn */
             color: white;
             font-size: 0.85rem;
             padding: 15px 0;

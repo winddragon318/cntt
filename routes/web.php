@@ -5,6 +5,10 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\Admin\TeacherManagerController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Admin\ClassManagerController;
 
 // --- TRANG CHỦ ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,19 +24,26 @@ Route::get('/co-cau-to-chuc', function () {
 Route::get('/doi-ngu-giang-vien', function () {
     return view('pages.doi-ngu-giang-vien');
 })->name('faculty.members');
-Route::get('/student/dashboard', function () {
-    return view('student.Dashboard');
-})->name('student.dashboard');
+
 // Route xem chi tiết bài viết
 Route::get('/news/{slug}', [PostController::class, 'show'])->name('news.show');
 //------------------//
-// --- DASHBOARD (Sau khi login thành công) ---
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route cho Giáo viên
+Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->group(function () {
+    Route::get('/dashboard', [TeacherController::class, 'index'])->name('teacher.dashboard');
+});
+
+// Route cho Sinh viên
+Route::middleware(['auth', 'role:student'])->prefix('student')->group(function () {
+    Route::get('/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
+});
 
 // --- NHÓM QUẢN TRỊ (Giữ nguyên URL cũ của bạn) ---
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 
     // Bảng điều khiển
     Route::get('/bang-dieu-khien', function () {
@@ -63,6 +74,18 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     // Xóa bài viết (Lưu ý: Bạn dùng @method('DELETE') trong Form nên dùng Route::delete)
     Route::delete('/xoa-bai-viet/{id}', [PostController::class, 'destroy'])->name('admin.posts.delete');
     Route::post('/posts/upload-image', [PostController::class, 'uploadImage'])->name('admin.posts.upload_image');
+    // Quản lý giáo viên
+    Route::get('/teachers', [TeacherManagerController::class, 'index'])->name('admin.teachers.index');
+    Route::post('/teachers', [TeacherManagerController::class, 'store'])->name('admin.teachers.store');
+    Route::get('/teachers/{id}/edit', [TeacherManagerController::class, 'edit'])->name('admin.teachers.edit');
+    Route::put('/teachers/{id}', [TeacherManagerController::class, 'update'])->name('admin.teachers.update');
+    Route::delete('/teachers/{id}', [TeacherManagerController::class, 'destroy'])->name('admin.teachers.destroy');
+    // Quản lý lớp học
+    Route::get('/classes', [ClassManagerController::class, 'index'])->name('admin.classes.index');
+    Route::post('/classes', [ClassManagerController::class, 'store'])->name('admin.classes.store');
+    Route::get('/classes/{id}/edit', [ClassManagerController::class, 'edit'])->name('admin.classes.edit');
+    Route::put('/classes/{id}', [ClassManagerController::class, 'update'])->name('admin.classes.update');
+    Route::delete('/classes/{id}', [ClassManagerController::class, 'destroy'])->name('admin.classes.destroy');
 });
 
 // --- PROFILE & AUTH ---
