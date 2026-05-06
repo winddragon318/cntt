@@ -14,10 +14,15 @@ class PostController extends Controller
     private $category_list = ['Tin tức', 'Thông báo', 'Tuyển sinh', 'Sự kiện','tuyen-dung'];
 
     // 1. Trang danh sách bài viết
-    public function index()
+    public function index(Request $request)
     {
-        // Xóa with('category') vì không còn bảng categories
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $query = Post::query();
+
+        if ($request->filled('category') && in_array($request->category, $this->category_list, true)) {
+            $query->where('categories', $request->category);
+        }
+
+        $posts = $query->latest()->paginate(10)->withQueryString();
 
         // Truyền mảng danh mục cứng sang để làm bộ lọc nếu cần
         $categories = $this->category_list;
@@ -122,5 +127,37 @@ class PostController extends Controller
 
     // Trả về view hiển thị nội dung chi tiết
     return view('pages.news', compact('post'));
+}
+public function daoTao()
+{
+    $posts = Post::where('categories', 'Tuyển sinh')
+                ->latest()
+                ->paginate(6);
+
+    return view('pages.dao-tao', compact('posts'));
+}
+public function tinTuc()
+{
+    $posts = Post::where('categories', 'Tin tức')
+                ->latest()
+                ->paginate(6);
+
+    return view('pages.tin-tuc', compact('posts'));
+}
+public function thongBao()
+{
+    $posts = Post::where('categories', 'Thông báo')
+                ->latest()
+                ->paginate(6);
+
+    return view('pages.thong-bao', compact('posts'));
+}
+public function tuyenDung()
+{
+    $posts = Post::where('categories', 'tuyen-dung')
+                ->latest()
+                ->paginate(6);
+
+    return view('pages.tuyen-dung', compact('posts'));
 }
 }

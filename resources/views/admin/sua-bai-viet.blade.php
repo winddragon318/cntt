@@ -10,7 +10,7 @@
             </div>
 
             {{-- Lưu ý: action trỏ đến route update và sử dụng method POST kèm @method('POST') hoặc PUT --}}
-            <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="form-post" action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 {{-- Nếu trong Route bạn dùng Route::put thì dùng @method('PUT'), nếu dùng Route::post thì để nguyên --}}
 
@@ -141,10 +141,14 @@
     }
 
     // Đảm bảo dữ liệu từ Editor được cập nhật vào input hidden trước khi submit
-    document.querySelector('form').addEventListener('submit', function() {
-        // Lệnh này tùy thuộc vào trình soạn thảo bạn đang dùng (CKEditor, TinyMCE, v.v.)
-        // Ví dụ với div contenteditable:
-        document.querySelector('#content_editor').value = document.querySelector('#editor').innerHTML;
-    });
+    const postForm = document.getElementById('form-post');
+    if (postForm) {
+        postForm.addEventListener('submit', function() {
+            const hiddenInput = document.getElementById('content_editor');
+            const editorDiv = document.getElementById('editor');
+            const editorData = window.editor ? window.editor.getData() : (editorDiv ? editorDiv.innerHTML : '');
+            hiddenInput.value = editorData;
+        });
+    }
 </script>
 @endsection

@@ -22,4 +22,9 @@ class Course extends Model
     {
         return $this->belongsToMany(Classes::class, 'class_course', 'course_id', 'class_id');
     }
+    public function schedules()
+    {
+        // Liên kết tới model Schedule với khóa ngoại course_id
+        return $this->hasMany(Schedule::class, 'course_id');
+    }
 }

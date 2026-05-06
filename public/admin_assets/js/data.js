@@ -333,16 +333,20 @@ $(document).ready(() => {
     })
   });
 
-  DecoupledEditor
-  .create( document.querySelector( '#editor' ) )
-  .then( editor => {
-      const toolbarContainer = document.querySelector( '#toolbar-container' );
+  const editorElement = document.querySelector('#editor');
+  const toolbarContainer = document.querySelector('#toolbar-container');
 
-      toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-  } )
-  .catch( error => {
-      console.error( error );
-  } );
+  if (editorElement && toolbarContainer) {
+    DecoupledEditor
+      .create(editorElement)
+      .then(editor => {
+        window.editor = editor;
+        toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   $.fn.datepicker.language['vn'] = {
     days: ['Chủ nhật', 'Thứ Hai', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],

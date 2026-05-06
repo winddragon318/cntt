@@ -56,11 +56,11 @@
                         Đào tạo
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Thông tin tuyển sinh</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dao-tao') }}">Thông tin tuyển sinh</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Tin tức - Sự kiện</a>
+                    <a class="nav-link" href="{{ route('tin-tuc') }}">Tin tức - Sự kiện</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -77,9 +77,9 @@
                         Sinh viên
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Thông báo sinh viên</a></li>
+                        <li><a class="dropdown-item" href="{{ route('thong-bao') }}">Thông báo sinh viên</a></li>
                         <li><a class="dropdown-item" href="#">Hướng dẫn biểu mẫu</a></li>
-                        <li><a class="dropdown-item" href="#">Thực tập việc làm</a></li>
+                        <li><a class="dropdown-item" href="{{ route('tuyen-dung') }}">Thực tập việc làm</a></li>
                     </ul>
                 </li>
 

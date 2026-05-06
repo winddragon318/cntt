@@ -9,6 +9,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\Admin\TeacherManagerController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Admin\ClassManagerController;
+use App\Http\Controllers\Teacher\CourseManagerController;
 
 // --- TRANG CHỦ ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -24,16 +25,41 @@ Route::get('/co-cau-to-chuc', function () {
 Route::get('/doi-ngu-giang-vien', function () {
     return view('pages.doi-ngu-giang-vien');
 })->name('faculty.members');
-
+Route::get('/dao-tao', [PostController::class, 'daoTao'])
+    ->name('dao-tao');
+Route::get('/tin-tuc-su-kien', [PostController::class, 'tinTuc'])
+    ->name('tin-tuc');
+Route::get('/thong-bao-sinh-vien', [PostController::class, 'thongBao'])
+    ->name('thong-bao');
+Route::get('/tuyen-dung', [PostController::class, 'tuyenDung'])
+    ->name('tuyen-dung');
 // Route xem chi tiết bài viết
 Route::get('/news/{slug}', [PostController::class, 'show'])->name('news.show');
 //------------------//
 
 // Route cho Giáo viên
-Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->group(function () {
-    Route::get('/dashboard', [TeacherController::class, 'index'])->name('teacher.dashboard');
-});
-
+Route::middleware(['auth', 'role:teacher'])
+    ->prefix('teacher')
+    ->name('teacher.') // Tiền tố chung cho tất cả route bên trong
+    ->group(function () {
+        Route::get('/dashboard', [TeacherController::class, 'index'])->name('dashboard');
+        // Quản lý khóa học của giáo viên
+        Route::get('/courses', [CourseManagerController::class, 'index'])->name('courses.index');
+        Route::get('/courses/{id}', [CourseManagerController::class, 'show'])->name('courses.show');
+        // Xem lịch trình của môn học
+    Route::get('/courses/{id}/schedule', [CourseManagerController::class, 'showSchedule'])->name('courses.schedule');
+    // Import lịch trình
+    Route::post('/courses/{id}/import', [CourseManagerController::class, 'importSchedule'])->name('courses.import');
+    // Xóa lịch trình lẻ
+    Route::delete('/schedule/{id}', [CourseManagerController::class, 'destroySchedule'])->name('schedule.destroy');
+    // Trang hiển thị form sửa
+    Route::get('/schedule/{id}/edit', [CourseManagerController::class, 'editSchedule'])->name('schedule.edit');
+    // Cập nhật lịch trình lẻ
+    Route::put('/schedule/{id}', [CourseManagerController::class, 'updateSchedule'])->name('schedule.update');
+    // API lấy sự kiện cho calendars
+    Route::get('/api/calendar-events', [CourseManagerController::class, 'getCalendarEvents'])->name('api.calendar.events');
+    Route::get('/calendar', [CourseManagerController::class, 'showFullCalendar'])->name('calendar');
+    });
 // Route cho Sinh viên
 Route::middleware(['auth', 'role:student'])->prefix('student')->group(function () {
     Route::get('/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
@@ -94,8 +120,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Thêm khóa học mới trực tiếp vào lớp này
     Route::post('/classes/{id}/courses', [ClassManagerController::class, 'storeCourse'])->name('admin.classes.storeCourse');
     // Sửa/Xóa khóa học (dùng chung cho toàn hệ thống)
-    Route::put('/courses/{id}', [CourseController::class, 'update'])->name('admin.courses.update');
-    Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('admin.courses.destroy');
+    Route::put('/courses/{id}', [ClassManagerController::class, 'update'])->name('admin.courses.update');
+    Route::delete('/courses/{id}', [ClassManagerController::class, 'destroy'])->name('admin.courses.destroy');
 });
 
 // --- PROFILE & AUTH ---

@@ -14,7 +14,7 @@
             </ul>
         </div>
         @endif
-            <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="form-post" action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">
@@ -32,7 +32,6 @@
                                     <label class="fw-bold mb-2 text-muted">Slug (Đường dẫn tự động)</label>
                                     <input class="form-control bg-light" name="slug" id="slugSite" type="text" readonly tabindex="-1" />
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label class="fw-bold mb-2">Danh mục bài viết</label>
@@ -153,18 +152,18 @@
         slug = slug.replace(/[^\w\-]+/g, '');
         document.getElementById('slugSite').value = slug;
     }
-    document.querySelector('form').addEventListener('submit', function(e) {
-        // Lấy nội dung từ trình soạn thảo của bạn
-        // Nếu dùng CKEditor 5, mã thường là: window.editor.getData()
-        // Ở đây mình ví dụ cách phổ biến để đổ dữ liệu vào input hidden:
-
-        const editorData = document.querySelector('#editor').innerHTML; // Hoặc editor.getData()
-        document.querySelector('#content_editor').value = editorData;
-
-        if(!document.querySelector('#content_editor').value) {
-            alert('Vui lòng nhập nội dung bài viết!');
-            e.preventDefault();
-        }
-    });
+    const postForm = document.getElementById('form-post');
+    if (postForm) {
+        postForm.addEventListener('submit', function(e) {
+            const hiddenInput = document.getElementById('content_editor');
+            const editorDiv = document.getElementById('editor');
+            const editorData = window.editor ? window.editor.getData() : (editorDiv ? editorDiv.innerHTML : '');
+            hiddenInput.value = editorData;
+            if (!editorData.trim() || editorData === '<p>&nbsp;</p>') {
+                alert('Vui lòng nhập nội dung bài viết!');
+                e.preventDefault();
+            }
+        });
+    }
 </script>
 @endsection
