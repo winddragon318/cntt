@@ -97,6 +97,9 @@ public function storeCourse(Request $request, $id)
     $request->validate([
         'name' => 'required',
         'code' => 'required|unique:courses,code',
+        'classroom' => 'nullable|string|max:100',
+        'semester' => 'nullable|string|max:50',
+        'credits' => 'required|integer|min:1|max:10',
         'teacher_ids' => 'required|array'
     ]);
 
@@ -104,6 +107,9 @@ public function storeCourse(Request $request, $id)
     $course = Course::create([
         'name' => $request->name,
         'code' => $request->code,
+        'classroom' => $request->classroom,
+        'semester' => $request->semester,
+        'credits' => $request->credits,
     ]);
 
     // 2. Gán giáo viên vào khóa học (Bảng teacher_course)
@@ -114,5 +120,39 @@ public function storeCourse(Request $request, $id)
     $class->courses()->attach($course->id);
 
     return redirect()->back()->with('success', 'Đã thêm khóa học vào chương trình!');
+}
+
+public function updateCourse(Request $request, $id)
+{
+    $course = Course::findOrFail($id);
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'code' => 'required|string|unique:courses,code,' . $course->id,
+        'classroom' => 'nullable|string|max:100',
+        'semester' => 'nullable|string|max:50',
+        'credits' => 'required|integer|min:1|max:10',
+        'teacher_ids' => 'required|array|min:1',
+    ]);
+
+    $course->update([
+        'name' => $request->name,
+        'code' => $request->code,
+        'classroom' => $request->classroom,
+        'semester' => $request->semester,
+        'credits' => $request->credits,
+    ]);
+
+    $course->teachers()->sync($request->teacher_ids);
+
+    return redirect()->back()->with('success', 'Đã cập nhật khóa học thành công!');
+}
+
+public function destroyCourse($id)
+{
+    $course = Course::findOrFail($id);
+    $course->delete();
+
+    return redirect()->back()->with('success', 'Đã xóa khóa học thành công!');
 }
 }

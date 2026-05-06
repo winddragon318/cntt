@@ -17,8 +17,8 @@
                         @method('patch')
                         <div class="mb-3">
                             <label class="form-label">Họ và tên</label>
-                            <input type="text" name="name" class="form-control" value="{{ old('name', Auth::user()->name) }}" required>
-                            @error('name') <span class="text-danger small">{{ $message }}</span> @enderror
+                            <input type="text" name="name" class="form-control bg-light text-muted" value="{{ old('name', Auth::user()->name) }}" readonly tabindex="-1" autocomplete="off" aria-readonly="true" title="Họ tên không thể thay đổi tại đây">
+                            @error('name') <span class="text-danger small">{{ $message }}</span> @enderror                
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Email</label>
@@ -58,16 +58,7 @@
                         @endif
                     </form>
                 </div>
-            </div>
-            <div class="card shadow-sm border-0 border-top border-danger border-3">
-                <div class="card-body">
-                    <h5 class="text-danger">Xóa tài khoản</h5>
-                    <p class="text-muted small">Sau khi xóa, mọi dữ liệu sẽ không thể khôi phục.</p>
-                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                        Xóa tài khoản vĩnh viễn
-                    </button>
-                </div>
-            </div>
+            </div>            
         </div>
     </div>
 </div>

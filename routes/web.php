@@ -59,10 +59,18 @@ Route::middleware(['auth', 'role:teacher'])
     // API lấy sự kiện cho calendars
     Route::get('/api/calendar-events', [CourseManagerController::class, 'getCalendarEvents'])->name('api.calendar.events');
     Route::get('/calendar', [CourseManagerController::class, 'showFullCalendar'])->name('calendar');
+    Route::get('/learning-results', [CourseManagerController::class, 'showLearningResults'])->name('learning-results');
+    Route::get('/learning-results/{course}', [CourseManagerController::class, 'showCourseResults'])->name('learning-results.show');
+    Route::post('/learning-results/{course}/import', [CourseManagerController::class, 'importCourseResults'])->name('learning-results.import');
+    Route::put('/learning-results/{course}/students/{student}', [CourseManagerController::class, 'updateStudentScore'])->name('learning-results.update-score');
     });
 // Route cho Sinh viên
 Route::middleware(['auth', 'role:student'])->prefix('student')->group(function () {
     Route::get('/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
+    Route::get('/timetable', [StudentController::class, 'timetable'])->name('student.timetable');
+    Route::get('/api/timetable-events', [StudentController::class, 'timetableEvents'])->name('student.api.timetable-events');
+    Route::get('/learning-results', [StudentController::class, 'learningResults'])->name('student.learning-results');
+    Route::get('/learning-results/{course}', [StudentController::class, 'learningResultDetail'])->name('student.learning-results.detail');
 });
 
 // --- NHÓM QUẢN TRỊ (Giữ nguyên URL cũ của bạn) ---
@@ -120,8 +128,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Thêm khóa học mới trực tiếp vào lớp này
     Route::post('/classes/{id}/courses', [ClassManagerController::class, 'storeCourse'])->name('admin.classes.storeCourse');
     // Sửa/Xóa khóa học (dùng chung cho toàn hệ thống)
-    Route::put('/courses/{id}', [ClassManagerController::class, 'update'])->name('admin.courses.update');
-    Route::delete('/courses/{id}', [ClassManagerController::class, 'destroy'])->name('admin.courses.destroy');
+    Route::put('/courses/{id}', [ClassManagerController::class, 'updateCourse'])->name('admin.courses.update');
+    Route::delete('/courses/{id}', [ClassManagerController::class, 'destroyCourse'])->name('admin.courses.destroy');
 });
 
 // --- PROFILE & AUTH ---

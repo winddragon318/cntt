@@ -9,7 +9,7 @@ class Course extends Model
     // nhưng khai báo tường minh cho chắc chắn:
     protected $table = 'courses';
 
-    protected $fillable = ['name', 'code'];
+    protected $fillable = ['name', 'code', 'classroom', 'semester', 'credits'];
 
     // Quan hệ với Giáo viên (Nhiều - Nhiều)
     public function teachers()
@@ -26,5 +26,12 @@ class Course extends Model
     {
         // Liên kết tới model Schedule với khóa ngoại course_id
         return $this->hasMany(Schedule::class, 'course_id');
+    }
+
+    // Quan hệ với Sinh viên (Nhiều - Nhiều)
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'course_student', 'course_id', 'student_id')
+            ->withTimestamps();
     }
 }

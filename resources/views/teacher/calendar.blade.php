@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
             list: 'Danh sách'
         },
         allDaySlot: false,
+        expandRows: true,
+        contentHeight: 620,
         slotMinTime: '07:00:00',
         slotMaxTime: '22:00:00',
         slotDuration: '05:00:00',
@@ -50,10 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         eventContent: function(arg) {
         let titleEl = document.createElement('div');
-        titleEl.style.fontWeight = 'bold';
+        titleEl.style.fontWeight = '700';
         titleEl.style.fontSize = '13px';
+        titleEl.style.color = '#111111';
         titleEl.style.whiteSpace = 'normal';
-        titleEl.innerHTML = arg.event.title + '<br><small>Ca: ' + (arg.event.extendedProps.ca || 'chưa chọn') + '</small>';
+        titleEl.innerHTML =
+            (arg.event.extendedProps.course_name || arg.event.title) +
+            '<br><small style="color:#111111;font-weight:700;">Lớp: ' + (arg.event.extendedProps.class_name || 'Chưa có lớp') + '</small>';
 
         return { domNodes: [titleEl] };
     },
@@ -69,10 +74,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
+    /* PC (>= 1025px) */
     #calendar {
         max-width: 100%;
         margin: 0 auto;
-        height: 700px;
+        height: 720px;
     }
     .fc-event { cursor: pointer; }
     .fc-event-title {
@@ -88,6 +94,57 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     .fc-timegrid-event {
         border-radius: 6px !important;
+        background: #dbeafe !important;
+        border: 1px solid #60a5fa !important;
+        color: #111111 !important;
+    }
+
+    /* iPad (768px - 1024px) */
+    @media (min-width: 768px) and (max-width: 1024px) {
+        #calendar {
+            height: 640px;
+        }
+        .fc .fc-toolbar {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .fc .fc-toolbar-title {
+            font-size: 1rem;
+        }
+        .fc .fc-button {
+            padding: 0.25rem 0.45rem;
+            font-size: 0.8rem;
+        }
+    }
+
+    /* Mobile (<= 767px) */
+    @media (max-width: 767px) {
+        #calendar {
+            height: 560px;
+        }
+        .fc .fc-toolbar {
+            align-items: flex-start;
+        }
+        .fc .fc-toolbar-chunk {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .fc .fc-toolbar-title {
+            font-size: 0.95rem;
+        }
+        .fc-timegrid-slot-label-cushion {
+            font-size: 12px;
+        }
+        .fc-timegrid-event .fc-event-main,
+        .fc-timegrid-event .fc-event-title {
+            font-size: 12px !important;
+            line-height: 1.25;
+        }
+        .fc .fc-scroller {
+            -webkit-overflow-scrolling: touch;
+        }
     }
 </style>
 @endsection

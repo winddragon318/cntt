@@ -82,7 +82,9 @@
                         <li><a class="dropdown-item" href="{{ route('tuyen-dung') }}">Thực tập việc làm</a></li>
                     </ul>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Tài khoản</a>
+                </li>
             </ul>
         </div>
     </div>

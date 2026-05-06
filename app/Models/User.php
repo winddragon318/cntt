@@ -74,4 +74,15 @@ class User extends Authenticatable
             'course_id'
         );
     }
+
+    // Các khóa học mà sinh viên đang theo học
+    public function studentCourses()
+    {
+        return $this->belongsToMany(
+            \App\Models\Course::class,
+            'course_student',
+            'student_id',
+            'course_id'
+        )->withTimestamps();
+    }
 }
